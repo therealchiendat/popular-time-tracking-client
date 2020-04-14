@@ -1,80 +1,59 @@
 import React, { Component } from 'react'
 import api from './Resources/sensitive/api.json'
-import {getData} from '../components/APIClient'
+import { getData } from '../components/APIClient'
 import parksList from './Resources/parks.json'
 import { Map, GoogleApiWrapper, Polygon, InfoWindow } from 'google-maps-react'
 
 export class MapContainer extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       venueData: []
     }
+
     this.clickPark = this.clickPark.bind(this)
   }
 
-  componentWillMount () {
-    getData('Gyms').then((data) => {
+  componentDidMount() {
+    getData('Shops').then((data) => {
       this.setState({
-        venueData: data.features
+        venueData: data
       }, () => {
-        this.render()
+        this.render();
+        this.forceUpdate();
       })
     })
   }
 
-  clickPark (e) {
+  clickPark(e) {
     console.log('Park clicked! -> ', e)
   }
 
-  render () {
+  render() {
     return (
       <Map
         google={this.props.google}
         zoom={15}
         initialCenter={{ lat: parksList.initialCoords.lat, lng: parksList.initialCoords.lng }}
       >
-        {parksList.parks.map(park => {
-          const pathArray = []
-          for (let i = 0; i < park.coords.length; i++) {
-            pathArray.push(park.coords[i])
-          }
-          return (
-            <Polygon
-              key={park.title}
-              name={park.name}
-              title={park.title}
-              paths={pathArray}
-              strokeColor={park.fillColor}
-              strokeOpacity={0.8}
-              strokeWeight={2}
-              fillColor={park.fillColor}
-              fillOpacity={0.35}
-              onClick={this.clickPark}
-            />
-          )
-        })}
-        {parksList.parks.map((park,i) => {
+        {this.state.venueData.map(venue => {
+          console.log(venue)
+          console.log(this.props.dayofweek)
           return (
             <InfoWindow
-              key={i}
-              visible={park !== undefined && park !== null}
-              position={{ lat: park.middle.lat, lng: park.middle.lng }}>
-              <div>
-                <h1>{park.title}</h1>
-              </div>
-            </InfoWindow>
-          )
-        })}
-        {this.state.venueData.map(park => {
-          return (
-            <InfoWindow
-              key={park.attributes.Name}
-              visible={park !== undefined && park !== null}
-              position={{ lat: park.geometry.y, lng: park.geometry.x }}
+              key={venue.id}
+              visible={venue !== undefined && venue !== null}
+              position={{ lat: venue.coordinates.lat, lng: venue.coordinates.lng }}
               onClick={this.clickPark}>
               <div>
-                <h1>{park.attributes.Name}</h1>
+                <h5>{venue.name}</h5>
+                <p>Busy level for {venue.populartimes[this.props.currentime[0]].name} @ {this.props.currentime[2]} is: {venue.populartimes[this.props.currentime[0]].data[this.props.currentime[1]]} %</p>
+                {
+                  venue.time_spent
+                    ?
+                    <p>Typical time spent at this venue: from {venue.time_spent[0]} minutes</p>
+                    : null
+                }
               </div>
             </InfoWindow>
           )

@@ -1,8 +1,8 @@
 const endpointList =
     [
         {
-            name: "Ball Fields",
-            URL: "https://services2.arcgis.com/iLWAxhpxafhOza2U/arcgis/rest/services/BallFields/FeatureServer/0/query?where=1%3D1&outFields=*&outSR=4326&f=json",
+            name: "Shops",
+            URL: "/api/stores",
             description: "Baseball, Softball, T-Ball fields"
         },
         {
@@ -39,18 +39,30 @@ const endpointList =
 
 const getURL = (name) => {
     for (let endpoint of endpointList) {
-        if (endpoint.name == name)
+        if (endpoint.name === name)
             return endpoint;
     }
 }
 
 const getData = (name) => {
     const endpoint = getURL(name);
-    return fetch(endpoint.URL).then((data) => data.json()).then((data) =>  data);
+    return fetch(endpoint.URL, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      })
+        .then(data => data.json())
+        .then(json => json);
 }
+// const getData = (name) => {
+//     const endpoint = getURL(name);
+//     return fetch(endpoint.URL).then((data) => data.json()).then((data) =>  data);
+// }
+
 
 const getEvents = () => {
     return fetch("http://spark.raydelto.org/events").then((data) => data.json()).then((data) =>  data.data);
 }
 
-export {getData ,getEvents};
+export {getData, getEvents};

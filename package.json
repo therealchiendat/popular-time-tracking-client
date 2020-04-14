@@ -2,6 +2,7 @@
   "name": "dot-ai-client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@material-ui/core": "^4.0.2",
     "@material-ui/icons": "^4.0.1",
@@ -15,7 +16,7 @@
     "react-scripts": "3.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start --disableHostCheck true",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

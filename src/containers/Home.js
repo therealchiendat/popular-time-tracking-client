@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import {getEvents} from '../components/APIClient'
 import { makeStyles } from '@material-ui/core/styles';
-import {Paper, InputBase, IconButton, List, ListItem, ListItemText, ListItemLink} from '@material-ui/core/';
+import { Paper, InputBase, IconButton, List, ListItem, ListItemText, ListItemLink } from '@material-ui/core/';
 import MapComponent from './Map.js';
-import MenuIcon from '@material-ui/icons/Menu';
+import { getData } from '../components/APIClient'
 import SearchIcon from '@material-ui/icons/Search';
 import './Home.css';
 
@@ -24,14 +23,14 @@ const searchstyle = makeStyles({
 });
 
 
-const SearchComponent = () =>{
+const SearchComponent = () => {
   const classes = searchstyle();
   return (
     <Paper className={classes.root}>
       <InputBase
         className={classes.input}
-        placeholder='Search for events'
-        inputProps={{ 'aria-label': 'Search for events' }}
+        placeholder='Search for locations'
+        inputProps={{ 'aria-label': 'Search for locations' }}
       />
       <IconButton className={classes.iconButton} aria-label='Search'>
         <SearchIcon />
@@ -42,24 +41,36 @@ const SearchComponent = () =>{
 
 
 export class Home extends React.Component {
+  state = {};
 
   constructor(props) {
-		super(props);
-		this.state = {
-        showingInfoWindow: false,
-        activeMarker: {},
-        selectedPlace: {},
-        venueData: {},
-        events: []
-		};
+    super(props);
+    this.state = {
+      showingInfoWindow: false,
+      currentime: [0,0,0],
+      activeMarker: {},
+      selectedPlace: {},
+      venueData: [],
+      events: []
+    };
+  }
+  componentDidMount() {
+    getData('Shops').then((data) => {
+      this.setState({
+        venueData: data
+      }, () => {
+        this.check_for_date();
+        this.forceUpdate();
+      })
+    })
   }
 
-  componentWillMount(){
-    getEvents().then((data)=>{
-      this.setState({events: data});
-      console.log("event");
-      console.log(this.state["events"]);
-    });
+  check_for_date() {
+    const current_date = new Date();
+    const convday = current_date.getDay() - 1 < 0 
+    ? 6 : current_date.getDay() - 1 ;
+    this.setState( {currentime: 
+      [convday, current_date.getHours(), current_date.toLocaleString('en-US', { hour: 'numeric', hour12: true })]});
   }
 
   render() {
@@ -69,44 +80,44 @@ export class Home extends React.Component {
       position: 'relative',
     }
     return (
-      <div  className='Home'>
+      <div className='Home'>
         <div className='Searchsection'
           style={{
-            'backgroundColor':'white',
-            'marginBottom':'20px',
-            'padding':'20px',
-            'borderRadius':'10px',
-            'boxShadow': '0 4px 4px 0 rgba(0,0,0,0.1)'}}>
+            'backgroundColor': 'white',
+            'marginBottom': '20px',
+            'padding': '20px',
+            'borderRadius': '10px',
+            'boxShadow': '0 4px 4px 0 rgba(0,0,0,0.1)'
+          }}>
           <SearchComponent />
           <List>
-            <ListItem button>
-              <ListItemText primary='Fredericton Rib Fest' />
+          {this.state.venueData.map(venue => {
+          return (
+            <ListItem button key={venue.id}>
+              <ListItemText primary={venue.name} />
             </ListItem>
-            <ListItem button>
-              <ListItemText primary='LGBT Pride Parade' />
-            </ListItem>
-
-            <ListItem button>
-              <ListItemText primary='Wild Karaoke' />
-            </ListItem>
+          )
+        })}
           </List>
         </div>
         <div
-        style={{
-          'backgroundColor':'white',
-          'width': 'auto',
-          'position': 'relative',
-          'height': '80vh',
-          'paddingTop':'20px',
-          'borderRadius':'10px',
-          'boxShadow': '0 4px 4px 0 rgba(0,0,0,0.1)'}}
+          style={{
+            'backgroundColor': 'white',
+            'width': 'auto',
+            'position': 'relative',
+            'height': '80vh',
+            'paddingTop': '20px',
+            'borderRadius': '10px',
+            'boxShadow': '0 4px 4px 0 rgba(0,0,0,0.1)'
+          }}
         >
-        <MapComponent
-          google={this.props.google}
-          onClick={this.onMapClicked}
-          zoom={10}
-          venuedata={this.state.venueData}
-        />
+          <MapComponent
+            google={this.props.google}
+            onClick={this.onMapClicked}
+            zoom={10}
+            venuedata={this.state.venueData}
+            currentime={this.state.currentime}
+          />
         </div>
       </div>
     )
