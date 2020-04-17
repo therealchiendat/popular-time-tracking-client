@@ -1,5 +1,5 @@
 {
-  "name": "dot-ai-client",
+  "name": "popular-time-tracking-client",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8080",
@@ -7,8 +7,9 @@
     "@material-ui/core": "^4.0.2",
     "@material-ui/icons": "^4.0.1",
     "aws-amplify": "^1.1.28",
-    "google-map-react": "^1.1.4",
+    "google-map-react": "^1.1.7",
     "google-maps-react": "^2.0.2",
+    "jsheatmap": "^1.2.2",
     "react": "^16.8.6",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.8.6",

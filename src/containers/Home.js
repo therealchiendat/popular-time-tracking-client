@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, InputBase, IconButton, List, ListItem, ListItemText, ListItemLink } from '@material-ui/core/';
+import { Paper, InputBase, IconButton, List, ListItem, ListItemText } from '@material-ui/core/';
 import MapComponent from './Map.js';
 import { getData } from '../components/APIClient'
 import SearchIcon from '@material-ui/icons/Search';
@@ -81,32 +81,12 @@ export class Home extends React.Component {
     }
     return (
       <div className='Home'>
-        <div className='Searchsection'
-          style={{
-            'backgroundColor': 'white',
-            'marginBottom': '20px',
-            'padding': '20px',
-            'borderRadius': '10px',
-            'boxShadow': '0 4px 4px 0 rgba(0,0,0,0.1)'
-          }}>
-          <SearchComponent />
-          <List>
-          {this.state.venueData.map(venue => {
-          return (
-            <ListItem button key={venue.id}>
-              <ListItemText primary={venue.name} />
-            </ListItem>
-          )
-        })}
-          </List>
-        </div>
+        
         <div
           style={{
             'backgroundColor': 'white',
-            'width': 'auto',
+            'width': '100vw',
             'position': 'relative',
-            'height': '80vh',
-            'paddingTop': '20px',
             'borderRadius': '10px',
             'boxShadow': '0 4px 4px 0 rgba(0,0,0,0.1)'
           }}
@@ -115,9 +95,19 @@ export class Home extends React.Component {
             google={this.props.google}
             onClick={this.onMapClicked}
             zoom={10}
-            venuedata={this.state.venueData}
             currentime={this.state.currentime}
           />
+        </div>
+
+        <div className='Searchsection'
+          style={{
+            'backgroundColor': 'white',
+            'marginBottom': '20px',
+            'padding': '20px',
+            'borderRadius': '10px',
+            'boxShadow': '0 4px 4px 0 rgba(0,0,0,0.1)'
+          }}>
+          
         </div>
       </div>
     )

@@ -1,0 +1,60 @@
+.circle {
+    background: rgba(0, 183, 255, 0.658);
+    opacity: 1;
+    border-radius: 100%;
+    min-width: 20px;
+    min-height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+
+.info {
+    position: fixed;
+    top: 100px;
+    left: 2vw;
+    background-color: white;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    border-radius: 5px;
+}
+
+.heat-map {
+    width: 20vw;
+    /* font: 16px "Lucida Grande", "Helvetica", "Arial", sans-serif; */
+  }
+
+.heat-map .td, .heat-map .tr {
+    width: 5px;
+}
+.detail {
+    text-align: center;
+}
+
+/* Basic Alignment */
+
+.align-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.align-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.space-around {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}

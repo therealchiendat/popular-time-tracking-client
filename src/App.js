@@ -1,8 +1,7 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Routes from "./Routes";
-import { Link } from "react-router-dom";
-import { Navbar, Nav, NavItem } from "react-bootstrap";
-import { Fab } from "@material-ui/core"
+import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import "./App.css";
 
 class App extends Component {
@@ -28,28 +27,18 @@ class App extends Component {
     };
     return (
       <div className="App container">
-      <Navbar fluid collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to="/">Overcrowded</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav pullRight>
-            {this.state.isAuthenticated
-              ? <Fragment>
-                  <Fab color="primary">Host</Fab>
-                  <NavItem onClick={this.handleLogout}>Logout</NavItem>
-                </Fragment>
-              : <Fragment>
-                    <NavItem href="/login">Login</NavItem>
-                    <NavItem href="/signup">Sign Up</NavItem>
-                </Fragment>
-            }
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+        <AppBar position='static'>
+          <Toolbar className='app-bar'>
+            <div></div>
+            <Typography variant='h6' className='app-title'>
+              Overcrowded
+          </Typography>
+            <div>
+              <IconButton><AccountCircle /></IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
+        
         <Routes childProps={childProps} />
       </div>
     );
