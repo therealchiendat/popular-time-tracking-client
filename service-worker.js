@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/popular-time-tracking-client/precache-manifest.c679037d00ffa476c47d6df17bd85720.js"
+  "/popular-time-tracking-client/precache-manifest.abd82c8abe5d8b8d6233b363d14c1826.js"
 );
 
 self.addEventListener('message', (event) => {
