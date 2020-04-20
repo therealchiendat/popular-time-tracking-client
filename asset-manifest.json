@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/popular-time-tracking-client/static/css/main.55cd18aa.chunk.css",
+    "main.js": "/popular-time-tracking-client/static/js/main.3cadd0dc.chunk.js",
+    "main.js.map": "/popular-time-tracking-client/static/js/main.3cadd0dc.chunk.js.map",
+    "runtime~main.js": "/popular-time-tracking-client/static/js/runtime~main.199feead.js",
+    "runtime~main.js.map": "/popular-time-tracking-client/static/js/runtime~main.199feead.js.map",
+    "static/js/2.9823d6d9.chunk.js": "/popular-time-tracking-client/static/js/2.9823d6d9.chunk.js",
+    "static/js/2.9823d6d9.chunk.js.map": "/popular-time-tracking-client/static/js/2.9823d6d9.chunk.js.map",
+    "index.html": "/popular-time-tracking-client/index.html",
+    "precache-manifest.d5949a848e02d24a949499e3140b86db.js": "/popular-time-tracking-client/precache-manifest.d5949a848e02d24a949499e3140b86db.js",
+    "service-worker.js": "/popular-time-tracking-client/service-worker.js",
+    "static/css/main.55cd18aa.chunk.css.map": "/popular-time-tracking-client/static/css/main.55cd18aa.chunk.css.map"
+  }
+}
